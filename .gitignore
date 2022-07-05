@@ -1,4 +1,5 @@
 /model.pkl
 /scores.json
 /plots.json
+dvc_plots/
 .env
