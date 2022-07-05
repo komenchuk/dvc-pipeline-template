@@ -1,3 +1,4 @@
+```
 git init 
 
 dvc init
@@ -25,4 +26,4 @@ dvc params diff
 dvc metrics diff
 
 dvc plots show -y precision -x recall plots.json
-
+```
