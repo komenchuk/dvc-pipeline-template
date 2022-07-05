@@ -1,0 +1,6 @@
+data_preparation:
+  categories:
+    - comp.graphics
+    - sci.space
+train:
+  alpha: 0.1

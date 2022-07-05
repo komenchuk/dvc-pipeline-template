@@ -1,0 +1,70 @@
+schema: '2.0'
+stages:
+  data_preparation:
+    cmd: python src/data_preparation.py
+    deps:
+    - path: src/data_preparation.py
+      md5: 8e0d8aef869958f925ab276cafa07ff4
+      size: 989
+    params:
+      params.yaml:
+        data_preparation.categories:
+        - comp.graphics
+        - sci.space
+    outs:
+    - path: data/prepared
+      md5: 3a909cff29bc5982f1a7cedfbae14d58.dir
+      size: 3720018
+      nfiles: 2
+  featurize:
+    cmd: python src/featurize.py data/prepared data/features
+    deps:
+    - path: data/prepared
+      md5: 3a909cff29bc5982f1a7cedfbae14d58.dir
+      size: 3720018
+      nfiles: 2
+    - path: src/featurize.py
+      md5: f9a567e8ed4b6649534fb1d0f29163b4
+      size: 1686
+    outs:
+    - path: data/features
+      md5: 48f78a2d3f2ba037da684f6454901ca1.dir
+      size: 481545670
+      nfiles: 2
+  train:
+    cmd: python src/train.py data/features model.pkl
+    deps:
+    - path: data/features
+      md5: 48f78a2d3f2ba037da684f6454901ca1.dir
+      size: 481545670
+      nfiles: 2
+    - path: src/train.py
+      md5: 4e2d26dcdf7e68de9b6c639ef4a15086
+      size: 829
+    params:
+      params.yaml:
+        train.alpha: 0.1
+    outs:
+    - path: model.pkl
+      md5: 77ef53b9fe39603e1244c6a9ecb85ec3
+      size: 982937
+  evaluate:
+    cmd: python src/evaluate.py model.pkl data/features scores.json plots.json
+    deps:
+    - path: data/features
+      md5: 48f78a2d3f2ba037da684f6454901ca1.dir
+      size: 481545670
+      nfiles: 2
+    - path: model.pkl
+      md5: 77ef53b9fe39603e1244c6a9ecb85ec3
+      size: 982937
+    - path: src/evaluate.py
+      md5: 65b9afd9adeb762b6947f1d5b00c7159
+      size: 1351
+    outs:
+    - path: plots.json
+      md5: c0fa9960574dfaf5ed1472d4a433a18f
+      size: 69277
+    - path: scores.json
+      md5: d56c0a981a3b057d4ba620435595ba9e
+      size: 27
