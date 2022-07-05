@@ -1,33 +1,38 @@
-```
-git init 
+```bash
 
-dvc init
+$ git init 
 
-dvc remote add -d storage gdrive://1xYp213LgSCn81q4lx_ZPuZkf0J8fYZ4Y
+$ dvc init
 
-dvc add data/prepared/train.csv data/prepared/test.csv
+$ dvc remote add -d storage gdrive://1xYp213LgSCn81q4lx_ZPuZkf0J8fYZ4Y
 
-dvc run -n featurize -d src/featurize.py -d data/prepared -o data/features python src/featurize.py data/prepared data/features
+$ dvc add data/prepared/train.csv data/prepared/test.csv
 
-dvc run -n train -p train.alpha -d src/train.py -d data/features -o model.pkl python src/train.py data/features model.pkl
+$ dvc run -n featurize -d src/featurize.py -d data/prepared -o data/features python src/featurize.py data/prepared data/features
 
-dvc run -n evaluate -d src/evaluate.py -d model.pkl -d data/features --metrics scores.json --plots plots.json python src/evaluate.py model.pkl data/features scores.json plots.json
+$ dvc run -n train -p train.alpha -d src/train.py -d data/features -o model.pkl python src/train.py data/features model.pkl
 
-dvc metrics show
+$ dvc run -n evaluate -d src/evaluate.py -d model.pkl -d data/features --metrics scores.json --plots plots.json python src/evaluate.py model.pkl data/features scores.json plots.json
 
-dvc dag
+$ dvc metrics show
 
-dvc repro
+$ dvc dag
 
-git add dvc.yaml dvc.lock data/.gitignore data/prepared/.gitignore data/prepared/test.csv.dvc data/prepared/train.csv.dvc
+$ dvc repro
 
-git commit -m "experiment 1"
+$ git add .
 
-dvc params diff
+$ git commit -m " "
 
-dvc metrics diff
+$ dvc push
 
-dvc plots show -y precision -x recall plots.json
+$ git push
 
-dvc plots diff --targets plots.json -y precision
+$ dvc params diff
+
+$ dvc metrics diff
+
+$ dvc plots show -y precision -x recall plots.json
+
+$ dvc plots diff --targets plots.json -y precision
 ```
