@@ -3,4 +3,4 @@ data_preparation:
     - comp.graphics
     - sci.space
 train:
-  alpha: 0.15
+  alpha: 0.9
